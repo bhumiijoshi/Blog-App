@@ -16,8 +16,6 @@ class Author(BaseModel):
     class Meta:
         db_table = "author"
     
-    
-    
 class BlogPost(BaseModel):
     blog_title = models.CharField(max_length=200)
     post_date = models.DateTimeField("date posted")
@@ -32,23 +30,9 @@ class Comment(BaseModel):
     comment_post_date = models.DateTimeField(auto_now_add=True)
     comment = models.TextField()
     
+    class Meta:
+        db_table = "comment"
     
     
+    
 
-# from django.db import models
-
-
-# class TimeStampedModel(models.Model):
-#     created_at = models.DateTimeField(auto_now_add=True)
-#     updated_at = models.DateTimeField(auto_now=True)
-
-#     class Meta:
-#         abstract = True
-
-
-# class Member(TimeStampedModel):
-#     member_id = models.CharField(max_length=255)
-
-
-# class EliteMember(Member, TimeStampedModel):
-#     additional_elite_data = models.TextField()
