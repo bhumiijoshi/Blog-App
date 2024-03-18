@@ -15,6 +15,9 @@ class Author(BaseModel):
     
     class Meta:
         db_table = "author"
+        
+    def __str__(self):
+        return self.name
     
 class BlogPost(BaseModel):
     blog_title = models.CharField(max_length=200)
@@ -24,6 +27,9 @@ class BlogPost(BaseModel):
     
     class Meta:
         db_table = "blog_post"
+        
+    def __str__(self):
+        return self.blog_title
     
 class Comment(BaseModel):
     blog = models.ForeignKey(BlogPost, on_delete=models.CASCADE)
@@ -32,6 +38,9 @@ class Comment(BaseModel):
     
     class Meta:
         db_table = "comment"
+    
+    def __str__(self):
+        return self.comment
     
     
     
