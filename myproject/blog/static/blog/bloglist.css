@@ -28,3 +28,11 @@ a {
     text-decoration: none;
     color: black;
   }
+  a:hover {
+    color: #967E76;
+  }
+
+.pagination {
+    margin-top: 30px;
+    margin-left: 1400px;
+}

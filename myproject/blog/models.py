@@ -8,7 +8,7 @@ class BaseModel(models.Model):
     class Meta:
         abstract = True
 
-class Authors(BaseModel):
+class Author(BaseModel):
     user = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
     name = models.CharField(max_length=50)
     biological_info = models.TextField()
@@ -21,7 +21,7 @@ class Authors(BaseModel):
 
 class BlogPost(BaseModel):
     title = models.TextField(default="No title available")
-    author = models.ForeignKey(Authors, on_delete=models.CASCADE, related_name = "authors")
+    author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name = "authors")
     content = models.TextField()
     
     class Meta:
@@ -35,7 +35,7 @@ class Comment(BaseModel):
     comment = models.TextField()
     
     class Meta:
-        db_table = "comment"
+        db_table = "comments"
     
     def __str__(self):
         return self.comment
