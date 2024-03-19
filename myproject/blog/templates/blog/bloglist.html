@@ -3,23 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Blogs</title>
     {% load static %}
 
     <link rel="stylesheet" href="{% static 'blog/bloglist.css' %}" />
   </head>
   <body>
-    {% if blog_list %}
+    {% if blogs %}
     <table>
         <tr>
             <th>Blog</th>
             <th>Post Date</th>
             <th>Author</th>
         </tr>
-      {% for blog in blog_list %}
+      {% for blog in blogs %}
       <tr>
-        <td><a href="#">{{ blog.blog_title }}</a></td>
-        <td>{{ blog.post_date }}</td>
+        <td><a href="#">{{ blog.title }}</a></td>
+        <td>{{ blog.created_at }}</td>
         <td><a href="#">{{ blog.author }}</a></td>
       </tr>
       {% endfor %}

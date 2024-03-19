@@ -1,44 +1,41 @@
 from django.db import models
-from django.utils import timezone
 from django.contrib.auth.models import User
 
 class BaseModel(models.Model):
-    created_at = models.DateTimeField(default=timezone.now, editable=False)
+    created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         abstract = True
-        db_table = "base_model"
 
-class Author(BaseModel):
+class Authors(BaseModel):
     user = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
     name = models.CharField(max_length=50)
     biological_info = models.TextField()
 
     class Meta:
-        db_table = "author"
+        db_table = "authors"
 
     def __str__(self):
         return self.name
 
 class BlogPost(BaseModel):
-    blog_title = models.CharField(max_length=200)
-    post_date = models.DateTimeField("date posted")
-    author = models.ForeignKey(Author, on_delete=models.CASCADE)
+    title = models.TextField(default="No title available")
+    author = models.ForeignKey(Authors, on_delete=models.CASCADE, related_name = "authors")
     content = models.TextField()
     
     class Meta:
         db_table = "blog_post"
         
     def __str__(self):
-        return self.blog_title
+        return self.title
     
-class Comments(BaseModel):
-    blog = models.ForeignKey(BlogPost, on_delete=models.CASCADE)
+class Comment(BaseModel):
+    blog = models.ForeignKey(BlogPost, on_delete=models.CASCADE,  related_name = "blogs")
     comment = models.TextField()
     
     class Meta:
-        db_table = "comments"
+        db_table = "comment"
     
     def __str__(self):
         return self.comment
