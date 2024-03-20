@@ -1,8 +1,11 @@
-from django.shortcuts import render
+from typing import Any
+from django.db.models.query import QuerySet
+from django.shortcuts import get_object_or_404, render
 from django.views import View, generic
-from .models import BlogPost
+from .models import BlogPost, Author
 from django.conf import settings
 
+ 
 class HomeView(View):
     def get(self, request):
         return render(request, "blog/home.html")
@@ -14,3 +17,13 @@ class BlogList(generic.ListView):
      
      def get_queryset(self):
          return BlogPost.objects.order_by("-created_at")
+    
+class AuthorProfile(generic.DetailView):
+    model = Author
+    template_name = "blog/author_detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        author = self.get_object()
+        context['author_posts'] = author.blogs.all().order_by("-created_at")
+        return context
