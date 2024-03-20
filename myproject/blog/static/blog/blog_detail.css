@@ -1,0 +1,17 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #9BABB8;
+  }
+
+.comment{
+   max-width: 500px;
+   margin-top: 500px;
+   padding: 15px;
+   background-color: #EEE3CB;
+   border-radius: 10px;
+   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.content{
+    font-size: 20px;
+}

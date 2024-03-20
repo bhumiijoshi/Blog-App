@@ -27,3 +27,14 @@ class AuthorProfile(generic.DetailView):
         author = self.get_object()
         context['author_posts'] = author.blogs.all().order_by("-created_at")
         return context
+
+class BlogDetail(generic.DetailView):
+    model = BlogPost
+    template_name = "blog/blog_detail.html"
+    context_object_name = "post"
+    
+    def get_context_data(self, **kwargs: Any):
+        context = super().get_context_data(**kwargs)
+        post = self.get_object()
+        context['comments'] = post.comments.all().order_by("created_at")
+        return context
