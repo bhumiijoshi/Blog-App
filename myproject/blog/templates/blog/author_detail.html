@@ -20,7 +20,7 @@
       </tr>
       {% for blog in author_posts %}
       <tr>
-        <td><a href="#">{{ blog.title }}</a></td>
+        <td><a href="{% url 'blog:blogdetail' blog.id %}">{{ blog.title }}</a></td>
         <td>{{ blog.created_at }}</td>
       </tr>
       {% endfor %}
