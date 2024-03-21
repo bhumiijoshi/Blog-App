@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bloggers</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'blog/bloggers_list.css' %}" />
+  </head>
+  <body>
+    {% if bloggers %}
+   <div class="blogger-list">
+    <div class="title">
+      <p>Bloggers</p>
+    </div>
+    <div class="list">
+      <p>
+        {% for blogger in bloggers %}
+
+        <a href="{% url 'blog:author' pk=blogger.id %}"> {{ blogger.name }}</a>
+      </p>
+      {% endfor %} 
+    </div>
+    </div>
+    {% endif %}
+   
+  </body>
+</html>
