@@ -9,20 +9,39 @@
   </head>
   <body>
     {% if bloggers %}
-   <div class="blogger-list">
     <div class="title">
       <p>Bloggers</p>
     </div>
-    <div class="list">
-      <p>
-        {% for blogger in bloggers %}
 
-        <a href="{% url 'blog:author' pk=blogger.id %}"> {{ blogger.name }}</a>
-      </p>
-      {% endfor %} 
-    </div>
+    <div class="list">
+      <table style="width: 500px">
+        {% for blogger in bloggers %}
+        <tr>
+          <td>
+            <a href="{% url 'blog:author' pk=blogger.id %}">
+              {{ blogger.name }}</a
+            >
+          </td>
+          <td>{{ blogger.created_at }}</td>
+        </tr>
+        {% endfor %}
+      </table>
     </div>
     {% endif %}
-   
+    <div class="pagination">
+      <span>
+        {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}">&laquo; previous</a>
+        {% endif %}
+
+        <span>
+          Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">next &raquo;</a>
+        {% endif %}
+      </span>
+    </div>
   </body>
 </html>

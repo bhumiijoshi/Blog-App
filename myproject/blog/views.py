@@ -41,5 +41,6 @@ class BlogDetail(generic.DetailView):
     
 class BloggerList(generic.ListView):
      model = Author
+     paginate_by = settings.DEFAULT_PAGINATED_RECORDS
      template_name = "blog/blogger_list.html"
      context_object_name = "bloggers"
