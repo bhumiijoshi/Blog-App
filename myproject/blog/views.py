@@ -38,3 +38,9 @@ class BlogDetail(generic.DetailView):
         post = self.get_object()
         context['comments'] = post.comments.all().order_by("created_at")
         return context
+    
+class BloggerList(generic.ListView):
+     model = Author
+     paginate_by = settings.DEFAULT_PAGINATED_RECORDS
+     template_name = "blog/blogger_list.html"
+     context_object_name = "bloggers"
