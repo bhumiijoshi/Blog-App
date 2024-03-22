@@ -15,6 +15,10 @@ body {
 .comment h3 {
   color: #967e76;
 }
+
+.comment h4{
+  color: #967e76;
+}
 .content {
   font-size: 20px;
 }

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Blog-Detail</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'blog/blog_detail.css' %}" />
+    <link rel="stylesheet"  href="{% static 'blog/blog_detail.css' %}" />
   </head>
   <body>
     <div class="headline">
@@ -21,14 +21,19 @@
     <div class="content">
       <p>{{ post.content }}</p>
     </div>
-
-    {% if comments %}
     <div class="comment">
+    {% if comments %}
+    
       <h3>Comments:</h3>
       {% for comment in comments %}
       <p>{{ comment.comment }}</p>
       {% endfor %} {% endif %}
-      <a href="#">Add comment</a>
+      <h4>Leave a comment:</h4>
+      <form method="post">
+      {% csrf_token %} 
+      {{ form.as_p }}
+      <input type="submit" value="Comment" class="button"/>
+    </form>
     </div>
   </body>
 </html>
