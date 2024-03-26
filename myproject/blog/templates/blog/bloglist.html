@@ -1,47 +1,53 @@
+{% extends 'blog/base.html' %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Blogs</title>
-    {% load static %}
+    {% block htmlhead %} {% load static %}
 
     <link rel="stylesheet" href="{% static 'blog/bloglist.css' %}" />
+    {% endblock htmlhead %}
   </head>
   <body>
-    {% if blogs %}
+    {% block content %} {% if blogs %}
     <table>
-        <tr>
-            <th>Blog</th>
-            <th>Post Date</th>
-            <th>Author</th>
-        </tr>
+      <tr>
+        <th>Blog</th>
+        <th>Post Date</th>
+        <th>Author</th>
+      </tr>
       {% for blog in blogs %}
       <tr>
-        <td><a href="{% url 'blog:blogdetail' blog.id %}">{{ blog.title }}</a></td>
+        <td>
+          <a href="{% url 'blog:blogdetail' blog.id %}">{{ blog.title }}</a>
+        </td>
         <td>{{ blog.created_at }}</td>
-        <td><a href="{% url 'blog:author' blog.author.id %}">{{ blog.author }}</a></td>
+        <td>
+          <a href="{% url 'blog:author' blog.author.id %}">{{ blog.author }}</a>
+        </td>
       </tr>
-      {% endfor %}
-    
-    {% else %}
-    <p>No blogs are available.</p>
-    {% endif %}
+      {% endfor %} {% else %}
+      <p>No blogs are available.</p>
+      {% endif %}
     </table>
     <div class="pagination">
+      <span>
+        {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}">&laquo; previous</a>
+        {% endif %}
+
         <span>
-            {% if page_obj.has_previous %}
-                <a href="?page={{ page_obj.previous_page_number }}">&laquo; previous</a>
-            {% endif %}
-    
-            <span>
-                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-            </span>
-    
-            {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}">next &raquo;</a>
-            {% endif %}
+          Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
         </span>
+
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">next &raquo;</a>
+        {% endif %}
+      </span>
     </div>
+
+    {% endblock content%}
   </body>
 </html>

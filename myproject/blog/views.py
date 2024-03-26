@@ -6,7 +6,9 @@ from .models import BlogPost, Author, Comment
 from django.conf import settings
 from .form import CommentForm
 from django.views.generic.edit import FormMixin
- 
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+  
 class HomeView(View):
     def get(self, request):
         return render(request, "blog/home.html")
@@ -42,6 +44,7 @@ class BlogDetail(generic.DetailView,FormMixin):
         context['form'] = CommentForm()
         return context
     
+    @method_decorator(login_required) 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST) 
         post = self.get_object() 

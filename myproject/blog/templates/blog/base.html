@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog site</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/base.css' %}">
+    {% block htmlhead %} 
+    {% endblock htmlhead %}
+  </head>
+  <body>
+    <div class ="login-out">
+    <header>
+      {%if request.user.is_authenticated %}
+      <span>Hi {{ request.user.username | title }} |</span>
+      <a href="{% url 'users:logout' %}">Logout</a>
+      {%else%}
+      <a href="{% url 'users:login' %}">Login</a>
+      {%endif%}
+    </header> 
+</div>
+    <main>
+      {% if messages %} {% for message in messages %}
+      <p>{{ message }}</p>
+      {% endfor %} {% endif %} {%block content%} {%endblock content%}
+    </main>
+  </body>
+</html>

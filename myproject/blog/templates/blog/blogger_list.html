@@ -1,14 +1,17 @@
+{% extends 'blog/base.html' %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bloggers</title>
-    {% load static %}
+    {% block htmlhead %} {% load static %}
     <link rel="stylesheet" href="{% static 'blog/bloggers_list.css' %}" />
+    {% endblock htmlhead %}
   </head>
   <body>
-    {% if bloggers %}
+    {% block content %} {% if bloggers %}
     <div class="title">
       <p>Bloggers</p>
     </div>
@@ -43,5 +46,6 @@
         {% endif %}
       </span>
     </div>
+    {% endblock content%}
   </body>
 </html>

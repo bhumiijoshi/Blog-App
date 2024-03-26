@@ -1,14 +1,18 @@
+{% extends 'blog/base.html' %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Author Profile</title>
-    {% load static %}
+    {% block htmlhead %} {% load static %}
 
     <link rel="stylesheet" href="{% static 'blog/author_detail.css' %}" />
+    {% endblock htmlhead %}
   </head>
   <body>
+    {% block content %}
+
     <h1>{{ author.name }}</h1>
     <p class="description">{{ author.biological_info }}</p>
 
@@ -20,12 +24,13 @@
       </tr>
       {% for blog in author_posts %}
       <tr>
-        <td><a href="{% url 'blog:blogdetail' blog.id %}">{{ blog.title }}</a></td>
+        <td>
+          <a href="{% url 'blog:blogdetail' blog.id %}">{{ blog.title }}</a>
+        </td>
         <td>{{ blog.created_at }}</td>
       </tr>
       {% endfor %}
     </table>
-    {% endif %}
-    
+    {% endif %} {% endblock content%}
   </body>
 </html>
