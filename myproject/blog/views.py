@@ -1,14 +1,14 @@
 from typing import Any
 from django.db.models.query import QuerySet
 from django.shortcuts import redirect, render
+from django.urls import reverse
 from django.views import View, generic
 from .models import BlogPost, Author, Comment
 from django.conf import settings
 from .form import CommentForm
 from django.views.generic.edit import FormMixin
 from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
-  
+
 class HomeView(View):
     def get(self, request):
         return render(request, "blog/home.html")
@@ -43,15 +43,19 @@ class BlogDetail(generic.DetailView,FormMixin):
         context['comments'] = post.comments.all().order_by("created_at")
         context['form'] = CommentForm()
         return context
-    
-    @method_decorator(login_required) 
+
+
     def post(self, request, *args, **kwargs):
+        
+        if not request.user.is_authenticated: 
+            return redirect(f'{reverse("users:login")}?next={request.path}')
         form = self.form_class(request.POST) 
-        post = self.get_object() 
+        post = self.get_object()
+        user = request.user
          
         if form.is_valid():
             comment = form.cleaned_data['comment']
-            comment_instance = Comment.objects.create(blog=post, comment=comment)
+            comment_instance = Comment.objects.create(user=user,blog=post, comment=comment)
             return redirect('.')
             
 class BloggerList(generic.ListView):

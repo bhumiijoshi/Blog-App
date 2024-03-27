@@ -14,11 +14,10 @@
     {% endfor %}
 {% endif %}
     <div class="container">
-        <form method="post" action=".">
+        <form method="post" action="{% if request.GET.next %}?next={{ request.GET.next }}{% endif %}">
         {% csrf_token %}
         <h2>Login</h2>
         {{form.as_p}}
-        <input type="hidden" name="next" value="{{ request.GET.next }}" />
         <button type="submit">Login</button>
         <p>Don't have an account? <a href="{%url 'users:signup' %}">Register</a></p>
     </form>

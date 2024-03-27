@@ -4,10 +4,10 @@ body {
  }
 
 .container{
-    max-width: 380px;
+    max-width: 340px;
     margin-left: 730px;
     margin-top: 200px;
-    padding: 25px;
+    padding: 20px;
     background-color: #EEE3CB;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
@@ -29,10 +29,10 @@ body {
 button{
     background-color: #967E76;
     color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
+    padding: 7px 10px;
+    margin: 8px 10px 0 33px;
     border: none;
     cursor: pointer;
-    width: 100%;
+    width: 80%;
     font-size: 15px;
 }

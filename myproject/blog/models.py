@@ -31,6 +31,7 @@ class BlogPost(BaseModel):
         return self.title
     
 class Comment(BaseModel):
+    user = models.ForeignKey(User,on_delete = models.CASCADE, default=None, related_name = "created_comments")                 
     blog = models.ForeignKey(BlogPost, on_delete=models.CASCADE,  related_name = "comments")
     comment = models.TextField()
     
