@@ -32,11 +32,9 @@
         <h3>Comments:</h3>
         {% for comment in comments %}
         <p>
-          {{ comment.comment }}</br>&nbsp;&nbsp;&nbsp;&nbsp;-{{ comment.user.username }} [{{ comment.created_at }} ]
-                   
+          {{ comment.comment }}</br>&nbsp;&nbsp;&nbsp;&nbsp;-{{ comment.user.username }} [{{ comment.created_at }} ]         
           </p>      
 
-  
         {% endfor %} {% endif %}
         <h4>Leave a comment:</h4>
         <form method="post">

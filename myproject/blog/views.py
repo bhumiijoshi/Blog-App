@@ -1,13 +1,16 @@
 from typing import Any
 from django.db.models.query import QuerySet
+from django.forms import BaseModelForm
+from django.http import HttpResponse
 from django.shortcuts import redirect, render
-from django.urls import reverse
+from django.urls import reverse,reverse_lazy
 from django.views import View, generic
 from .models import BlogPost, Author, Comment
 from django.conf import settings
 from .form import CommentForm
-from django.views.generic.edit import FormMixin
+from django.views.generic.edit import FormMixin, CreateView
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 class HomeView(View):
     def get(self, request):
@@ -28,7 +31,7 @@ class AuthorProfile(generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         author = self.get_object()
-        context['author_posts'] = author.blogs.all().order_by("-created_at")
+        context['author_posts'] = BlogPost.objects.select_related().filter(author = author)
         return context
 
 class BlogDetail(generic.DetailView,FormMixin):
@@ -40,7 +43,7 @@ class BlogDetail(generic.DetailView,FormMixin):
     def get_context_data(self, **kwargs: Any):
         context = super().get_context_data(**kwargs)
         post = self.get_object()
-        context['comments'] = post.comments.all().order_by("created_at")
+        context['comments'] = Comment.objects.select_related().filter(blog = post)
         context['form'] = CommentForm()
         return context
 
@@ -63,3 +66,19 @@ class BloggerList(generic.ListView):
      paginate_by = settings.DEFAULT_PAGINATED_RECORDS
      template_name = "blog/blogger_list.html"
      context_object_name = "bloggers"
+     
+     def get_queryset(self):
+         return Author.objects.only('name','created_at')
+     
+class CreateAuthor(LoginRequiredMixin,CreateView):
+    
+    model = Author
+    template_name = "blog/create_author.html"
+    fields = ['name','biological_info']
+       
+    def form_valid(self, form):
+        form = form.save(commit=False)
+        user = self.request.user
+        form.user = user
+        form.save()
+        return redirect('blog:blog_list')
