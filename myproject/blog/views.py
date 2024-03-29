@@ -22,7 +22,7 @@ class BlogList(generic.ListView):
      context_object_name = "blogs"
      
      def get_queryset(self):
-         return BlogPost.objects.order_by("-created_at")
+         return BlogPost.objects.select_related("author").order_by("-created_at")
     
 class BloggerDetail(generic.DetailView):
     model = Author
@@ -31,7 +31,7 @@ class BloggerDetail(generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         author = self.get_object()
-        context['author_posts'] = author.blogs.all()
+        context['author_posts'] = BlogPost.objects.filter(author=author).select_related("author").order_by("-created_at")
         return context
 
 class BlogDetail(generic.DetailView,FormMixin):
@@ -43,7 +43,7 @@ class BlogDetail(generic.DetailView,FormMixin):
     def get_context_data(self, **kwargs: Any):
         context = super().get_context_data(**kwargs)
         post = self.get_object()
-        context['comments'] = post.comments.all()
+        context['comments'] = Comment.objects.filter(blog=post).select_related("blog")
         context['form'] = CommentForm()
         return context
 
@@ -94,7 +94,7 @@ class BloggerProfile(LoginRequiredMixin,generic.TemplateView):
         context = super().get_context_data(**kwargs)
         author = self.request.user.author
         context['author'] = author
-        context['author_posts'] = author.blogs.all()
+        context['author_posts'] = BlogPost.objects.filter(author=author).select_related("author")
         return context
     
 class CreatePost(LoginRequiredMixin,CreateView):
