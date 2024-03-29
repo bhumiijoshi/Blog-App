@@ -21,7 +21,7 @@
         {% for blogger in bloggers %}
         <tr>
           <td>
-            <a href="{% url 'blog:author' pk=blogger.id %}">
+            <a href="{% url 'blog:blogger' pk=blogger.id %}">
               {{ blogger.name }}</a
             >
           </td>

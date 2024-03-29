@@ -1,0 +1,44 @@
+{% extends 'blog/base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Author Profile</title>
+    {% block htmlhead %} {% load static %}
+
+    <link rel="stylesheet" href="{% static 'blog/author_detail.css' %}" />
+    {% endblock htmlhead %}
+  </head>
+  <body>
+    {% block content %}
+    <div class="author-info">
+      <h1>{{ author.name }}</h1>
+      <p>{{ author.biological_info }}</p>
+    </div>
+    <div class="add_post">
+      <a href="{% url 'blog:create_post' %}">Add Post</a>
+    </div>
+    {% if author_posts %}
+    <table>
+      <tr>
+        <th>Post</th>
+        <th>Date</th>
+        <th>Modify</th>
+      </tr>
+      {% for blog in author_posts %}
+      <tr>
+        <td>
+          <a href="{% url 'blog:blogdetail' blog.id %}">{{ blog.title }}</a>
+        </td>
+        <td>{{ blog.created_at }}</td>
+        <td>
+          <a href="{% url 'blog:update_post' blog.id %}">Update</a>&nbsp;&nbsp;
+          <a href="{% url 'blog:delete_post' blog.id %}">Delete</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+    {% endif %} {% endblock content%}
+  </body>
+</html>

@@ -1,0 +1,36 @@
+{% extends 'blog/base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Delete Post</title>
+    {% block htmlhead %} {% load static %}
+    <link rel="stylesheet" href="{% static 'blog/create_author.css' %}" />
+    {% endblock htmlhead %}
+  </head>
+  <body>
+    {%block content%}
+    <div class="container">
+      <form method="post">
+        {% csrf_token %}
+        <h2>Delete Post</h2>
+
+        <div class="msg">
+          <p>Are you sure you want to delete " {{ object }}"?</p>
+        </div>
+        <div class="outer">
+          <div class="inner">
+            <button type="submit" value="Confirm">Delete</button>
+          </div>
+          <div class="inner">
+            <button type="submit" value="Cancel">
+              <a href="{% url 'blog:blogger_profile' %}">Cancel</a>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+    {%endblock content%}
+  </body>
+</html>

@@ -25,7 +25,9 @@
         </td>
         <td>{{ blog.created_at }}</td>
         <td>
-          <a href="{% url 'blog:author' blog.author_id %}">{{ blog.author }}</a>
+          <a href="{% url 'blog:blogger' blog.author_id %}"
+            >{{ blog.author }}</a
+          >
         </td>
       </tr>
       {% endfor %} {% else %}

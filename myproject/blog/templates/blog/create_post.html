@@ -1,0 +1,24 @@
+{% extends 'blog/base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Post</title>
+    {% block htmlhead %} {% load static %}
+    <link rel="stylesheet" href="{% static 'blog/create_author.css' %}" />
+    {% endblock htmlhead %}
+  </head>
+  <body>
+    {%block content%}
+    <div class="container">
+      <form method="post">
+        {% csrf_token %}
+        <h2>Create Post</h2>
+        {{form.as_p}}
+        <button type="submit">Post</button>
+      </form>
+    </div>
+    {%endblock content%}
+  </body>
+</html>

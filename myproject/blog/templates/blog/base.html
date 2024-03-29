@@ -27,9 +27,9 @@
     <div class="read-write">
     {% if request.user.is_authenticated and request.user.author %}
     
-      <a href="#">Add a post</a>
+      <a href="{% url 'blog:blogger_profile' %}">{{ request.user.username }} Profile</a>
       {%else%}
-      <a href="{% url 'blog:create_author' %}">Become an author</a>
+      <a href="{% url 'blog:create_blogger' %}">Become an author</a>
   
       {%endif%}
     </div>
