@@ -1,31 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Blog site</title>
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'blog/base.css' %}">
-    {% block htmlhead %} 
-    {% endblock htmlhead %}
-  </head>
-  <body>
-    <div class ="login-out">
-    <header>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog site</title>
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'blog/base.css' %}" />
+  {% block htmlhead %} {% endblock htmlhead %}
+</head>
+
+<body>
+  <header>
+    <div class="login-out">
+
       {%if request.user.is_authenticated %}
-      <span>Hi {{ request.user.username | title }} |</span> 
-      <a href="{% url 'users:logout' %}">Logout</a>
+
+      <span>Hi {{ request.user.username | title }} |</span>
+      <a href="{% url 'users:logout' %}">Logout</a></br>
+
       {%else%}
       <a href="{% url 'users:login' %}">Login | </a>
       <a href="{% url 'users:signup' %}">Register</a>
       {%endif%}
-    </header> 
-</div>
-    <main>
-      {% if messages %} {% for message in messages %}
-      <p>{{ message }}</p>
-      {% endfor %} {% endif %} {%block content%} {%endblock content%}
+    </div>
+    <div class="read-write">
+    {% if request.user.is_authenticated and request.user.author %}
+    
+      <a href="{% url 'blog:blogger_profile' %}">{{ request.user.username }} Profile</a>
+      {%else%}
+      <a href="{% url 'blog:create_blogger' %}">Become an author</a>
+  
+      {%endif%}
+    </div>
 
-    </main>
-  </body>
+
+  </header>
+  <main>
+    {% if messages %} {% for message in messages %}
+    <p>{{ message }}</p>
+    {% endfor %} {% endif %} {%block content%} {%endblock content%}
+  </main>
+</body>
+
 </html>
