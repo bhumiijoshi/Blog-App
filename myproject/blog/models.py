@@ -39,4 +39,7 @@ class Comment(BaseModel):
         db_table = "comments"
     
     def __str__(self):
-        return self.comment
+        if len(self.comment) > 75:
+            return self.comment[:75] + "..."
+        else:
+            return self.comment
