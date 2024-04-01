@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.conf import settings
 
 class BaseModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
@@ -39,7 +40,8 @@ class Comment(BaseModel):
         db_table = "comments"
     
     def __str__(self):
-        if len(self.comment) > 75:
-            return self.comment[:75] + "..."
+        comment_length = settings.DEFAULT_COMMENT_LENGTH
+        if len(self.comment) > comment_length:
+            return self.comment[:comment_length] + "..."
         else:
             return self.comment
