@@ -14,7 +14,7 @@ class ModelsObjectNameTests(TestCase):
         self.assertEqual(str(comment),"This is comment")
         self.assertEqual(str(author), "Test Author")
         
-class AuthorModelsFieldLabel(TestCase):
+class AuthorModelsField(TestCase):
     
     @classmethod
     def setUpTestData(cls):
@@ -22,45 +22,41 @@ class AuthorModelsFieldLabel(TestCase):
         test_user1.save()
         Author.objects.create(user=test_user1,name="test_author",biological_info='This is a bio')
         
-    def test_user_label(self):
+    def test_user(self):
         author=Author.objects.get(id=1)
-        field_label = author._meta.get_field('user').verbose_name
-        self.assertEquals(field_label,'user')
+        test_user = User.objects.get(id=1)
+        self.assertEqual(author.user,test_user)
         
-    def test_name_label(self):
+    def test_name(self):
         author=Author.objects.get(id=1)
-        field_label = author._meta.get_field('name').verbose_name
-        self.assertEquals(field_label,'name')
+        self.assertEqual(author.name,'test_author')
         
-    def test_biological_label(self):
+    def test_biological(self):
         author=Author.objects.get(id=1)
-        field_label = author._meta.get_field('biological_info').verbose_name
-        self.assertEquals(field_label,'biological info')
+        self.assertEqual(author.biological_info,'This is a bio')
         
 class BlogPostModelsFieldLabel(TestCase):
-    
+ 
     @classmethod
     def setUpTestData(cls):
         test_user1 = User.objects.create_user(username='testuser1', password='12345') 
         test_user1.save()
         test_author = Author.objects.create(user=test_user1,name="test_author",biological_info='This is a bio')
         test_author.save()
-        BlogPost.objects.create(author=test_author,title="Test_title",content="this is a title")
+        BlogPost.objects.create(author=test_author,title="Test_title",content="this is a content")
         
-    def test_author_label(self):
+    def test_author(self):
         post=BlogPost.objects.get(id=1)
-        field_label = post._meta.get_field('author').verbose_name
-        self.assertEquals(field_label,'author')
+        test_author = Author.objects.get(id=1)
+        self.assertEquals(post.author,test_author)
         
-    def test_title_label(self):
+    def test_title(self):
         post=BlogPost.objects.get(id=1)
-        field_label = post._meta.get_field('title').verbose_name
-        self.assertEquals(field_label,'title')
+        self.assertEquals(post.title,'Test_title')
         
-    def test_content_label(self):
+    def test_content(self):
         post=BlogPost.objects.get(id=1)
-        field_label = post._meta.get_field('content').verbose_name
-        self.assertEquals(field_label,'content')
+        self.assertEquals(post.content,'this is a content')
 
 class CommentModelsFieldLabel(TestCase):
     
@@ -72,23 +68,22 @@ class CommentModelsFieldLabel(TestCase):
         test_author.save()
         test_post = BlogPost.objects.create(author=test_author,title="Test_title",content="this is a title")
         test_post.save()
-        comment="this is comment"*80
-        Comment.objects.create(user=test_user1,blog=test_post,comment=comment)
+       
+        Comment.objects.create(user=test_user1,blog=test_post,comment="this is comment")
         
-    def test_user_label(self):
+    def test_user(self):
         comment=Comment.objects.get(id=1)
-        field_label = comment._meta.get_field('user').verbose_name
-        self.assertEquals(field_label,'user')
+        user = User.objects.get(id=1)
+        self.assertEquals(comment.user,user)
         
-    def test_blog_label(self):
+    def test_blog(self):
         comment=Comment.objects.get(id=1)
-        field_label = comment._meta.get_field('blog').verbose_name
-        self.assertEquals(field_label,'blog')
+        blog = BlogPost.objects.get(id=1)
+        self.assertEquals(comment.blog,blog)
         
-    def test_comment_label(self):
+    def test_comment(self):
         comment=Comment.objects.get(id=1)
-        field_label = comment._meta.get_field('comment').verbose_name
-        self.assertEquals(field_label,'comment')
+        self.assertEquals(comment.comment,'this is comment')
               
 class BlogListViewTestCase(TestCase):
             
