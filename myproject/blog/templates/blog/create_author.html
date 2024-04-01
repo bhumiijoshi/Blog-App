@@ -1,24 +1,24 @@
 {% extends 'blog/base.html' %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Create Author</title>
     {% block htmlhead %} {% load static %}
     <link rel="stylesheet" href="{% static 'blog/create_author.css' %}" />
     {% endblock htmlhead %}
-</head>
-<body>
+  </head>
+  <body>
     {%block content%}
     <div class="container">
-    <form method="post">
+      <form method="post">
         {% csrf_token %}
         <h2>Become an author</h2>
         {{form.as_p}}
         <button type="submit">Create Profile</button>
-    </form>
-</div>
+      </form>
+    </div>
     {%endblock content%}
-</body>
+  </body>
 </html>
