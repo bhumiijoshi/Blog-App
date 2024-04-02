@@ -8,16 +8,16 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('blog', '0009_authors_comment_remove_author_user_and_more'),
+        ("blog", "0009_authors_comment_remove_author_user_and_more"),
     ]
 
     operations = [
         migrations.RenameModel(
-            old_name='Authors',
-            new_name='Author',
+            old_name="Authors",
+            new_name="Author",
         ),
         migrations.AlterModelTable(
-            name='comment',
-            table='comments',
+            name="comment",
+            table="comments",
         ),
     ]
