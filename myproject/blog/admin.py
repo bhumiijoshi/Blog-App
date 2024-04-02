@@ -6,9 +6,9 @@ class CommentInline(admin.StackedInline):
     extra = 3
 
 class BlogPostAdmin(admin.ModelAdmin):
-    
+
     inlines = [CommentInline]
-    
+
 admin.site.register(Author)
 admin.site.register(BlogPost, BlogPostAdmin)
 admin.site.register(Comment)

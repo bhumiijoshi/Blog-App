@@ -38,5 +38,3 @@ class Migration(migrations.Migration):
             table='comment',
         ),
     ]
-
-

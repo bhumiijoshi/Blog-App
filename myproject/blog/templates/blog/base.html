@@ -26,11 +26,11 @@
     </div>
     <div class="read-write">
     {% if request.user.is_authenticated and request.user.author %}
-    
+
       <a href="{% url 'blog:blogger_profile' %}">{{ request.user.username }} Profile</a>
       {%else%}
       <a href="{% url 'blog:create_blogger' %}">Become an author</a>
-  
+
       {%endif%}
     </div>
 

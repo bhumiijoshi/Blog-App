@@ -9,7 +9,7 @@ urlpatterns = [
     path('users/', include("users.urls")),
 ]
 if settings.DEBUG_TOOLBAR:
-    
+
     urlpatterns += [
         path('__debug__/', include(debug_toolbar.urls)),
     ]
